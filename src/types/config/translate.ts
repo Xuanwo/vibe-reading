@@ -1,5 +1,4 @@
 import { z } from "zod"
-import { langCodeISO6393Schema } from "@/definitions"
 import { HOTKEYS } from "@/utils/constants/hotkeys"
 import { MAX_PRELOAD_MARGIN, MAX_PRELOAD_THRESHOLD, MIN_BATCH_CHARACTERS, MIN_BATCH_ITEMS, MIN_CHARACTERS_PER_NODE, MIN_PRELOAD_MARGIN, MIN_PRELOAD_THRESHOLD, MIN_TRANSLATE_CAPACITY, MIN_TRANSLATE_RATE, MIN_WORDS_PER_NODE } from "@/utils/constants/translate"
 import { TRANSLATION_NODE_STYLE } from "@/utils/constants/translation-node-style"
@@ -93,15 +92,10 @@ export const translateConfigSchema = z.object({
   }),
   page: z.object({
     range: pageTranslateRangeSchema,
-    autoTranslatePatterns: z.array(z.string()),
-    neverAutoTranslatePatterns: z.array(z.string()),
-    autoTranslateLanguages: z.array(langCodeISO6393Schema),
     shortcut: pageTranslationShortcutSchema,
     preload: preloadConfigSchema,
     minCharactersPerNode: z.number().min(MIN_CHARACTERS_PER_NODE),
     minWordsPerNode: z.number().min(MIN_WORDS_PER_NODE),
-    enableTargetLanguageSkip: z.boolean(),
-    skipLanguages: z.array(langCodeISO6393Schema),
   }),
   enableAIContentAware: z.boolean(),
   customPromptsConfig: customPromptsConfigSchema,

@@ -8,7 +8,6 @@ export const ANALYTICS_FEATURES = Object.values(ANALYTICS_FEATURE)
 
 export const ANALYTICS_SURFACE = {
   POPUP: "popup",
-  PAGE_AUTO: "page_auto",
   SHORTCUT: "shortcut",
   TOUCH_GESTURE: "touch_gesture",
 } as const

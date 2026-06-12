@@ -14,7 +14,6 @@ popup:
   targetLang: 대상
   translate: 번역
   showOriginal: 원문 보기
-  alwaysTranslate: 이 사이트 항상 번역
   options: 옵션
   hover: 마우스 오버
   translateParagraph: 단락 번역
@@ -201,16 +200,6 @@ options:
       maxItemsPerBatch:
         title: 최대 단락 수
         description: 각 배치 번역의 최대 단락 수로 각 번역의 콘텐츠 양을 제어합니다
-    autoTranslateWebsite:
-      title: 웹사이트 기반 자동 번역
-      description: 이 사이트를 항상 번역합니다
-      urlPattern: URL 패턴
-      enterUrlPattern: URL 패턴 입력
-    neverAutoTranslateWebsite:
-      title: Never Auto Translate Based on Website
-      description: Never automatically translate this website
-      urlPattern: URL Pattern
-      enterUrlPattern: Enter URL Pattern
     personalizedPrompts:
       title: 개인화된 프롬프트
       description: 다양한 유형의 프롬프트를 사용자 정의하여, 번역 시 프롬프트 유형을 직접 조정할 수 있습니다. 프롬프트는 사용자가 LLM에게 보내는 텍스트를 나타내며.
@@ -320,16 +309,6 @@ options:
       enable: 활성화
     llmProviderConfigured: $1에 LLM 제공업체 선택됨
     llmProviderNotConfigured: $1에 LLM 제공업체 미선택
-    autoTranslateLanguages:
-      title: 언어에 기반한 자동 번역
-      description: 특정 언어가 감지되면 페이지 콘텐츠를 자동으로 번역합니다
-      selectLanguages: 언어 선택
-    skipLanguages:
-      title: 언어 기반 자동 건너뛰기
-      description: 지정된 언어가 감지되면 단락 번역을 자동으로 건너뜁니다
-      targetLanguageSkip: 대상 언어 건너뛰기
-      targetLanguageSkipDescription: 번역 전에 단락이 이미 대상 언어인지 미리 감지합니다. 일치하는 텍스트는 요청을 보내지 않고 건너뜁니다. 이 옵션을 꺼도 번역 결과가 원문과 같으면 숨기는 후처리 보호는 유지됩니다.
-      selectLanguages: 언어 선택
     aiContentAware:
       title: AI 스마트 컨텍스트 번역
       description: AI에 웹페이지 컨텍스트를 제공하여 번역 품질을 향상시킵니다

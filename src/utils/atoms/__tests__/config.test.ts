@@ -8,10 +8,9 @@ describe("mergeWithArrayOverwrite", () => {
       language: DEFAULT_CONFIG.language,
       translate: {
         ...DEFAULT_CONFIG.translate,
-        page: {
-          ...DEFAULT_CONFIG.translate.page,
-          autoTranslatePatterns: ["old.com"],
-          autoTranslateLanguages: ["eng"],
+        customPromptsConfig: {
+          promptId: null,
+          patterns: [{ id: "old", name: "Old", systemPrompt: "", prompt: "old" }],
         },
       },
     }
@@ -19,9 +18,15 @@ describe("mergeWithArrayOverwrite", () => {
     const patch = {
       language: { targetCode: "jpn" },
       translate: {
+        customPromptsConfig: {
+          promptId: null,
+          patterns: [{ id: "new", name: "New", systemPrompt: "", prompt: "new" }],
+        },
         page: {
-          autoTranslatePatterns: ["new.com", "test.org"],
-          autoTranslateLanguages: [],
+          preload: {
+            margin: 1000,
+            threshold: 0.25,
+          },
         },
         mode: "replace",
       },
@@ -30,14 +35,13 @@ describe("mergeWithArrayOverwrite", () => {
     const result = mergeWithArrayOverwrite(config, patch)
 
     // Arrays should be completely replaced
-    expect(result.translate.page.autoTranslatePatterns).toEqual(["new.com", "test.org"])
-    expect(result.translate.page.autoTranslateLanguages).toEqual([])
+    expect(result.translate.customPromptsConfig.patterns).toEqual([{ id: "new", name: "New", systemPrompt: "", prompt: "new" }])
 
     expect(result.translate.mode).toBe("replace")
 
     // Ensure immutability
     expect(result).not.toBe(config)
-    expect(result.translate.page.autoTranslatePatterns).not.toBe(config.translate.page.autoTranslatePatterns)
+    expect(result.translate.customPromptsConfig.patterns).not.toBe(config.translate.customPromptsConfig.patterns)
   })
 
   it("should handle edge cases and type conversions", () => {

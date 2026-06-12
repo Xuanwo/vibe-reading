@@ -1,13 +1,9 @@
 import type { LangCodeISO6393 } from "@/definitions"
 import type { FeatureUsageContext } from "@/types/analytics"
-import type { Config } from "@/types/config/config"
 import { browser, storage } from "#imports"
-import { ANALYTICS_FEATURE, ANALYTICS_SURFACE } from "@/types/analytics"
-import { createFeatureUsageContext } from "@/utils/analytics"
 import { normalizeDetectedCode } from "@/utils/config/languages"
-import { CONFIG_STORAGE_KEY, DEFAULT_DETECTED_CODE } from "@/utils/constants/config"
+import { DEFAULT_DETECTED_CODE } from "@/utils/constants/config"
 import { getDetectedCodeStateKey, getTranslationStateKey } from "@/utils/constants/storage-keys"
-import { shouldEnableAutoTranslation } from "@/utils/host/translate/auto-translation"
 import { logger } from "@/utils/logger"
 import { onMessage, sendMessage } from "@/utils/message"
 import { injectHostContentIntoCurrentTabIframesAfterNodeTranslation, injectHostContentIntoTabIframes } from "./iframe-injection"
@@ -95,26 +91,13 @@ export function translationMessage() {
 
   onMessage("reportDetectedPageLanguage", async (msg) => {
     const tabId = msg.sender?.tab?.id
-    const { url, detectedCodeOrUnd } = msg.data
+    const { detectedCodeOrUnd } = msg.data
     if (typeof tabId === "number") {
       const detectedCode = normalizeDetectedCode(detectedCodeOrUnd)
       await storage.setItem<LangCodeISO6393>(getDetectedCodeStateKey(tabId), detectedCode)
 
       if (await isActiveCurrentWindowTab(tabId)) {
         notifyDetectedCodeChanged(detectedCode)
-      }
-
-      const config = await storage.getItem<Config>(`local:${CONFIG_STORAGE_KEY}`)
-      if (!config)
-        return
-
-      const shouldEnable = await shouldEnableAutoTranslation(url, detectedCodeOrUnd, config)
-      if (shouldEnable) {
-        requestManagerToTogglePageTranslation(
-          tabId,
-          true,
-          createFeatureUsageContext(ANALYTICS_FEATURE.PAGE_TRANSLATION, ANALYTICS_SURFACE.PAGE_AUTO),
-        )
       }
       return
     }

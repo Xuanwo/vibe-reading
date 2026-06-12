@@ -14,7 +14,6 @@ popup:
   targetLang: 目标语言
   translate: 翻译
   showOriginal: 显示原文
-  alwaysTranslate: 总是翻译这个网站
   options: 选项
   hover: 鼠标悬停
   translateParagraph: 来翻译段落
@@ -202,16 +201,6 @@ options:
       maxItemsPerBatch:
         title: 最大段落数
         description: 每个批量翻译的最大段落数，用于控制单次翻译的内容量
-    autoTranslateWebsite:
-      title: 基于网站自动翻译
-      description: 总是翻译这个网站
-      urlPattern: URL 模式
-      enterUrlPattern: 输入 URL 模式
-    neverAutoTranslateWebsite:
-      title: 基于网站永不自动翻译
-      description: 永不自动翻译这个网站
-      urlPattern: URL 模式
-      enterUrlPattern: 输入 URL 模式
     personalizedPrompts:
       title: 个性化 Prompt
       description: 自定义不同类型的 Prompt，可以在翻译时自行调整 Prompt 类型。Prompt 表示以用户身份发送给 LLM 的文本。
@@ -321,16 +310,6 @@ options:
       enable: 启用
     llmProviderConfigured: 已为$1选择 LLM 提供商
     llmProviderNotConfigured: 没有为$1选择 LLM 提供商
-    autoTranslateLanguages:
-      title: 基于语言的自动翻译
-      description: 当检测到指定语言时自动翻译页面内容
-      selectLanguages: 选择语言
-    skipLanguages:
-      title: 基于语言的自动跳过
-      description: 当检测到指定语言时自动跳过段落翻译
-      targetLanguageSkip: 跳过目标语言
-      targetLanguageSkipDescription: 翻译前预检测段落是否已是目标语言；命中时不发送翻译请求。关闭后仍保留译文与原文相同则不显示的后置保护。
-      selectLanguages: 选择语言
     aiContentAware:
       title: AI 智能上下文翻译
       description: 通过向 AI 提供网页上下文来提高翻译质量

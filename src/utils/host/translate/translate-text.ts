@@ -8,37 +8,11 @@ import { LANG_CODE_TO_EN_NAME } from "@/definitions"
 import { isAPIProviderConfig, isLLMProviderConfig } from "@/types/config/provider"
 import { getProviderConfigById } from "@/utils/config/helpers"
 
-import { detectLanguage } from "@/utils/content/language"
 import { logger } from "@/utils/logger"
 import { getTranslatePrompt } from "@/utils/prompts/translate"
 import { Sha256Hex } from "../../hash"
 import { sendMessage } from "../../message"
 import { prepareTranslationText } from "./text-preparation"
-
-// Minimum text length for skip language detection (shorter than general detection
-// to catch short phrases like "Bonjour!" or "こんにちは")
-export const MIN_LENGTH_FOR_SKIP_LLM_DETECTION = 10
-
-/**
- * Check if text should be skipped based on LLM language detection.
- * @param text - Text to detect language for
- * @param skipLanguages - List of languages to skip translation for
- * @returns true if text language is in skipLanguages list (should skip translation)
- */
-export async function shouldSkipByLanguage(
-  text: string,
-  skipLanguages: LangCodeISO6393[],
-): Promise<boolean> {
-  const detectedLang = await detectLanguage(text, {
-    minLength: MIN_LENGTH_FOR_SKIP_LLM_DETECTION,
-  })
-
-  if (!detectedLang) {
-    return false
-  }
-
-  return skipLanguages.includes(detectedLang)
-}
 
 export function normalizePromptContextValue(value: string | null | undefined): string | null | undefined {
   if (value == null) {

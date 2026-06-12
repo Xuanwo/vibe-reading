@@ -16,17 +16,12 @@ const injectHostContentIntoTabIframesMock = vi.fn()
 const injectHostContentIntoCurrentTabIframesAfterNodeTranslationMock = vi.fn()
 const loggerErrorMock = vi.fn()
 const loggerWarnMock = vi.fn()
-const shouldEnableAutoTranslationMock = vi.fn()
 
 const messageHandlers = new Map<string, (msg: any) => any>()
 
 vi.mock("@/utils/message", () => ({
   onMessage: onMessageMock,
   sendMessage: sendMessageMock,
-}))
-
-vi.mock("@/utils/host/translate/auto-translation", () => ({
-  shouldEnableAutoTranslation: shouldEnableAutoTranslationMock,
 }))
 
 vi.mock("@/utils/logger", () => ({
@@ -100,7 +95,6 @@ describe("translationMessage", () => {
     storageGetItemMock.mockResolvedValue(undefined)
     storageSetItemMock.mockResolvedValue(undefined)
     storageRemoveItemMock.mockResolvedValue(undefined)
-    shouldEnableAutoTranslationMock.mockResolvedValue(false)
   })
 
   it("persists manager-enabled state and injects current iframes from the top frame", async () => {

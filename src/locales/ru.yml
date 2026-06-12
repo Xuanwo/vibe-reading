@@ -14,7 +14,6 @@ popup:
   targetLang: Целевой
   translate: Перевести
   showOriginal: Показать оригинал
-  alwaysTranslate: Всегда переводить этот сайт
   options: Настройки
   hover: Наведение
   translateParagraph: для перевода абзаца
@@ -201,16 +200,6 @@ options:
       maxItemsPerBatch:
         title: Максимум абзацев
         description: Максимальное количество абзацев для каждого пакетного перевода для контроля объёма содержимого каждого перевода
-    autoTranslateWebsite:
-      title: Автоперевод по веб-сайту
-      description: Всегда переводить этот веб-сайт
-      urlPattern: URL-шаблон
-      enterUrlPattern: Введите URL-шаблон
-    neverAutoTranslateWebsite:
-      title: Never Auto Translate Based on Website
-      description: Never automatically translate this website
-      urlPattern: URL Pattern
-      enterUrlPattern: Enter URL Pattern
     personalizedPrompts:
       title: Персонализированные промпты
       description: Настройка различных типов промптов позволяет вам самостоятельно изменять тип промпта во время перевода. Промпт — это текст, который пользователь отправляет LLM.
@@ -320,16 +309,6 @@ options:
       enable: Включить
     llmProviderConfigured: LLM-провайдер выбран для $1
     llmProviderNotConfigured: LLM-провайдер не выбран для $1
-    autoTranslateLanguages:
-      title: Автоперевод по языку
-      description: Автоматически переводить содержимое страницы при обнаружении определённых языков
-      selectLanguages: Выберите языки
-    skipLanguages:
-      title: Автопропуск по языку
-      description: Автоматически пропускать перевод абзацев при обнаружении указанных языков
-      targetLanguageSkip: Пропускать целевой язык
-      targetLanguageSkipDescription: Перед переводом определяет, написан ли абзац уже на целевом языке. Совпадающий текст пропускается без отправки запроса. Отключение этого параметра не меняет последующую защиту, которая скрывает неизменившийся результат перевода.
-      selectLanguages: Выберите языки
     aiContentAware:
       title: Умный контекстный перевод ИИ
       description: Улучшайте качество перевода, предоставляя ИИ контекст веб-страницы

@@ -14,7 +14,6 @@ popup:
   targetLang: Target
   translate: Translate
   showOriginal: Show Original
-  alwaysTranslate: Always translate this site
   options: Options
   hover: Hover
   translateParagraph: to translate paragraph
@@ -202,16 +201,6 @@ options:
       maxItemsPerBatch:
         title: Maximum Paragraph Count
         description: Maximum number of paragraphs for each batch translation to control the content volume of each translation
-    autoTranslateWebsite:
-      title: Auto Translate Based on Website
-      description: Always translate this website
-      urlPattern: URL Pattern
-      enterUrlPattern: Enter URL Pattern
-    neverAutoTranslateWebsite:
-      title: Never Auto Translate Based on Website
-      description: Never automatically translate this website
-      urlPattern: URL Pattern
-      enterUrlPattern: Enter URL Pattern
     personalizedPrompts:
       title: Personalized Prompts
       description: Customizing different types of Prompts allows you to adjust the Prompt type yourself during translation. A Prompt represents the text that the user sends to the LLM.
@@ -321,16 +310,6 @@ options:
       enable: Enable
     llmProviderConfigured: LLM provider selected for $1
     llmProviderNotConfigured: No LLM provider selected for $1
-    autoTranslateLanguages:
-      title: Auto Translate Based on Language
-      description: Automatically translate page content when specific languages are detected
-      selectLanguages: Select languages
-    skipLanguages:
-      title: Auto Skip Based on Language
-      description: Automatically skip paragraph translation when specific languages are detected
-      targetLanguageSkip: Skip target language
-      targetLanguageSkipDescription: Before translating, detect whether the paragraph is already in the target language. Matching text is skipped without sending a request. Turning this off does not change the later safeguard that hides unchanged translation output.
-      selectLanguages: Select languages
     aiContentAware:
       title: AI Smart Context Translation
       description: Enhance translation quality by providing webpage context to the AI

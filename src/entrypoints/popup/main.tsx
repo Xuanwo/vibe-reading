@@ -19,7 +19,7 @@ import { renderPersistentReactRoot } from "@/utils/react-root"
 import { queryClient } from "@/utils/tanstack-query"
 import { getLocalThemeMode } from "@/utils/theme"
 import App from "./app"
-import { getIsInPatterns, isCurrentSiteInPatternsAtom, isPageTranslatedAtom } from "./atoms/auto-translate"
+import { isPageTranslatedAtom } from "./atoms/auto-translate"
 import { isIgnoreTabAtom, isIgnoreUrl } from "./atoms/ignore"
 import "@/assets/styles/text-small.css"
 import "@/assets/styles/theme.css"
@@ -31,7 +31,6 @@ function HydrateAtoms({
   initialValues: [
     [typeof configAtom, Config],
     [typeof isPageTranslatedAtom, boolean],
-    [typeof isCurrentSiteInPatternsAtom, boolean],
     [typeof isIgnoreTabAtom, boolean],
     [typeof baseThemeModeAtom, ThemeMode],
   ]
@@ -65,10 +64,6 @@ async function initApp() {
       })) ?? false
   }
 
-  const isInPatterns = tabId
-    ? await getIsInPatterns(config.translate)
-    : false
-
   const activeTabUrl = activeTab[0]?.url || ""
   const isIgnoreTab = isIgnoreUrl(activeTabUrl)
 
@@ -80,7 +75,6 @@ async function initApp() {
             initialValues={[
               [configAtom, config],
               [isPageTranslatedAtom, isPageTranslated],
-              [isCurrentSiteInPatternsAtom, isInPatterns],
               [isIgnoreTabAtom, isIgnoreTab],
               [baseThemeModeAtom, themeMode],
             ]}

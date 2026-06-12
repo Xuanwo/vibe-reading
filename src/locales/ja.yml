@@ -14,7 +14,6 @@ popup:
   targetLang: 翻訳言語
   translate: 翻訳
   showOriginal: 原文を表示
-  alwaysTranslate: このサイトを常に翻訳する
   options: オプション
   hover: ホバー
   translateParagraph: 段落を翻訳
@@ -201,16 +200,6 @@ options:
       maxItemsPerBatch:
         title: 最大段落数
         description: 各バッチ翻訳の最大段落数、各翻訳のコンテンツ量を制御します
-    autoTranslateWebsite:
-      title: ウェブサイトに基づく自動翻訳
-      description: このサイトを常に翻訳する
-      urlPattern: URL パターン
-      enterUrlPattern: URL パターンを入力
-    neverAutoTranslateWebsite:
-      title: Never Auto Translate Based on Website
-      description: Never automatically translate this website
-      urlPattern: URL Pattern
-      enterUrlPattern: Enter URL Pattern
     personalizedPrompts:
       title: 個人化プロンプト
       description: 異なるタイプのプロンプトをカスタマイズすることで、翻訳時にプロンプトタイプを自ら調整できます。プロンプトとは、ユーザーがLLMに送信するテキストを指します。
@@ -320,16 +309,6 @@ options:
       enable: 有効化
     llmProviderConfigured: $1の LLM プロバイダー選択済み
     llmProviderNotConfigured: $1の LLM プロバイダー未選択
-    autoTranslateLanguages:
-      title: 言語に基づく自動翻訳
-      description: 特定の言語が検出された場合にページコンテンツを自動翻訳します
-      selectLanguages: 言語を選択
-    skipLanguages:
-      title: 言語に基づく自動スキップ
-      description: 指定された言語が検出されると、段落の翻訳を自動的にスキップします
-      targetLanguageSkip: ターゲット言語をスキップ
-      targetLanguageSkipDescription: 翻訳前に段落がすでにターゲット言語かどうかを事前検出します。一致したテキストはリクエストを送信せずにスキップされます。オフにしても、翻訳結果が原文と同じ場合に非表示にする後段の保護は変わりません。
-      selectLanguages: 言語を選択
     aiContentAware:
       title: AI スマートコンテキスト翻訳
       description: ウェブページのコンテキストを AI に提供して翻訳品質を向上させます

@@ -14,7 +14,6 @@ popup:
   targetLang: 目標語言
   translate: 翻譯
   showOriginal: 顯示原文
-  alwaysTranslate: 總是翻譯這個網站
   options: 選項
   hover: 滑鼠停留
   translateParagraph: 翻譯段落
@@ -201,16 +200,6 @@ options:
       maxItemsPerBatch:
         title: 最大段落數
         description: 每個批次翻譯的最大段落數，用於控制單次翻譯的內容量
-    autoTranslateWebsite:
-      title: 依網站自動翻譯
-      description: 總是翻譯這個網站
-      urlPattern: URL 模式
-      enterUrlPattern: 輸入 URL 模式
-    neverAutoTranslateWebsite:
-      title: 依網站永不自動翻譯
-      description: 永不自動翻譯這個網站
-      urlPattern: URL 模式
-      enterUrlPattern: 輸入 URL 模式
     personalizedPrompts:
       title: 個人化提示詞
       description: 自訂不同類型的提示詞，可以在翻譯時自行調整提示詞類型。提示詞表示以使用者身份發送給 LLM 的文字。
@@ -320,16 +309,6 @@ options:
       enable: 啟用
     llmProviderConfigured: 已為$1選擇 LLM 提供者
     llmProviderNotConfigured: 沒有為$1選擇 LLM 提供者
-    autoTranslateLanguages:
-      title: 依語言自動翻譯
-      description: 當偵測到特定語言時自動翻譯頁面內容
-      selectLanguages: 選擇語言
-    skipLanguages:
-      title: 依語言自動跳過
-      description: 當偵測到指定語言時自動跳過段落翻譯
-      targetLanguageSkip: 跳過目標語言
-      targetLanguageSkipDescription: 翻譯前預先偵測段落是否已是目標語言；命中時不發送翻譯請求。關閉後仍保留譯文與原文相同則不顯示的後置保護。
-      selectLanguages: 選擇語言
     aiContentAware:
       title: AI 智慧上下文翻譯
       description: 透過向 AI 提供網頁上下文來提高翻譯品質

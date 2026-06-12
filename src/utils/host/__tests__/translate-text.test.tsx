@@ -2,7 +2,6 @@
 
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { DEFAULT_CONFIG } from "@/utils/constants/config"
-import { detectLanguage } from "@/utils/content/language"
 import { executeTranslate } from "@/utils/host/translate/execute-translate"
 import { translateTextForPage, translateTextForPageTitle } from "@/utils/host/translate/translate-variants"
 import { getTranslatePrompt } from "@/utils/prompts/translate"
@@ -28,10 +27,6 @@ vi.mock("@/utils/prompts/translate", () => ({
   getTranslatePrompt: vi.fn(),
 }))
 
-vi.mock("@/utils/content/language", () => ({
-  detectLanguage: vi.fn(),
-}))
-
 vi.mock("@/utils/host/translate/webpage-context", () => ({
   getOrCreateWebPageContext: vi.fn(),
 }))
@@ -47,7 +42,6 @@ let mockGetConfigFromStorage: any
 let mockGetTranslatePrompt: any
 let mockGetOrCreateWebPageContext: any
 let mockGetOrGenerateWebPageSummary: any
-let mockDetectLanguage: any
 
 describe("translate-text", () => {
   beforeEach(async () => {
@@ -61,7 +55,6 @@ describe("translate-text", () => {
     mockGetTranslatePrompt = vi.mocked((await import("@/utils/prompts/translate")).getTranslatePrompt)
     mockGetOrCreateWebPageContext = vi.mocked((await import("@/utils/host/translate/webpage-context")).getOrCreateWebPageContext)
     mockGetOrGenerateWebPageSummary = vi.mocked((await import("@/utils/host/translate/webpage-summary")).getOrGenerateWebPageSummary)
-    mockDetectLanguage = vi.mocked(detectLanguage)
 
     // Mock getOrCreateWebPageContext to return stable webpage metadata
     mockGetOrCreateWebPageContext.mockImplementation(() => Promise.resolve({
@@ -97,66 +90,6 @@ describe("translate-text", () => {
       }))
       expect(mockGetOrCreateWebPageContext).not.toHaveBeenCalled()
       expect(mockGetOrGenerateWebPageSummary).not.toHaveBeenCalled()
-    })
-
-    it("skips target-language text before sending a translation request by default", async () => {
-      mockDetectLanguage.mockResolvedValueOnce(DEFAULT_CONFIG.language.targetCode)
-
-      const targetLanguageText = "这是一个已经使用目标语言写成的较长段落，用于触发翻译前目标语言检测并跳过请求，同时确保文本长度超过检测阈值。"
-      const result = await translateTextForPage(targetLanguageText)
-
-      expect(result).toBe("")
-      expect(mockDetectLanguage).toHaveBeenCalledWith(targetLanguageText)
-      expect(mockSendMessage).not.toHaveBeenCalled()
-    })
-
-    it("sends the translation request when target-language precheck is disabled", async () => {
-      const config = {
-        ...DEFAULT_CONFIG,
-        translate: {
-          ...DEFAULT_CONFIG.translate,
-          page: {
-            ...DEFAULT_CONFIG.translate.page,
-            enableTargetLanguageSkip: false,
-          },
-        },
-      }
-      mockGetConfigFromStorage.mockResolvedValue(config)
-      mockSendMessage.mockResolvedValue("translated text")
-
-      const targetLanguageText = "这是一个已经使用目标语言写成的较长段落，但关闭预检测后仍然应该发送翻译请求，同时确保文本长度超过检测阈值。"
-      const result = await translateTextForPage(targetLanguageText)
-
-      expect(result).toBe("translated text")
-      expect(mockDetectLanguage).not.toHaveBeenCalled()
-      expect(mockSendMessage).toHaveBeenCalledWith("enqueueTranslateRequest", expect.objectContaining({
-        text: targetLanguageText,
-      }))
-    })
-
-    it("keeps explicit skipLanguages behavior when target-language precheck is disabled", async () => {
-      const config = {
-        ...DEFAULT_CONFIG,
-        translate: {
-          ...DEFAULT_CONFIG.translate,
-          page: {
-            ...DEFAULT_CONFIG.translate.page,
-            enableTargetLanguageSkip: false,
-            skipLanguages: ["jpn"],
-          },
-        },
-      }
-      mockGetConfigFromStorage.mockResolvedValue(config)
-      mockDetectLanguage.mockResolvedValueOnce("jpn")
-
-      const japaneseText = "これは日本語で書かれた十分に長い段落で、明示的なスキップ言語の設定によって翻訳前にスキップされます。"
-      const result = await translateTextForPage(japaneseText)
-
-      expect(result).toBe("")
-      expect(mockDetectLanguage).toHaveBeenCalledWith(japaneseText, {
-        minLength: 10,
-      })
-      expect(mockSendMessage).not.toHaveBeenCalled()
     })
   })
 

@@ -27,9 +27,6 @@ export const DEFAULT_CONFIG: Config = {
     },
     page: {
       range: "all",
-      autoTranslatePatterns: ["news.ycombinator.com"],
-      neverAutoTranslatePatterns: [],
-      autoTranslateLanguages: [],
       shortcut: DEFAULT_AUTO_TRANSLATE_SHORTCUT_KEY,
       preload: {
         margin: DEFAULT_PRELOAD_MARGIN,
@@ -37,8 +34,6 @@ export const DEFAULT_CONFIG: Config = {
       },
       minCharactersPerNode: DEFAULT_MIN_CHARACTERS_PER_NODE,
       minWordsPerNode: DEFAULT_MIN_WORDS_PER_NODE,
-      enableTargetLanguageSkip: true,
-      skipLanguages: [],
     },
     enableAIContentAware: false,
     customPromptsConfig: DEFAULT_TRANSLATE_PROMPTS_CONFIG,
